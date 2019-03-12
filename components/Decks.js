@@ -34,7 +34,7 @@ class Decks extends Component {
 
 
         return (
-            <ScrollView>
+            <ScrollView style={{ flex: 1 }}>
                 <Text>All the decks</Text>
                 {Object.keys(decks).map((deckTitle) => (
                     <DeckView key={deckTitle} deckTitle={deckTitle} />
