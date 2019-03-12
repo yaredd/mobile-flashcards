@@ -14,12 +14,12 @@ export default function decks(state={}, action) {
         case ADD_DECK:
             return {
                 ...state,
-                [action.deck.title]: action.deck
+                ...action.deck
             }
         case ADD_CARD_TO_DECK:
             return {
                 ...state,
-                [action.deck.title]: { title: action.deck.title, cards: action.deck.cards.concat(action.card)}
+                [action.deck.title]: { ...state[action.deck.title], cards: action.deck.cards.concat(action.card)}
             }
         case REMOVE_DECK:
             const {[action.deck.title]: _, ...rest} = state

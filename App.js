@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
-import { StyleSheet, Text, View, StatusBar } from 'react-native'
-import { createAppContainer, createMaterialTopTabNavigator } from 'react-navigation'
+import { StyleSheet, Text, View, StatusBar, Platform } from 'react-native'
+import { createAppContainer, createBottomTabNavigator, createMaterialTopTabNavigator } from 'react-navigation'
 import Decks from './components/Decks'
 import AddDeck from './components/AddDeck'
 import { Constants } from 'expo';
@@ -9,11 +9,25 @@ import { createStore } from 'redux'
 import reducer from './reducers'
 
 const tabs = {
-  Decks: Decks,
-  AddDeck: AddDeck
+  Decks: {
+    screen: Decks,
+    navigationOptions: {
+      tabBarLabel: 'Home'
+    }
+  },
+  AddDeck: {
+    screen: AddDeck,
+    navigationOptions: {
+      tabBarLabel: 'Add Deck'
+    }
+  }
 }
   
-const TabNavigator = createAppContainer(createMaterialTopTabNavigator(tabs))
+const TabNavigator = createAppContainer(
+        Platform.OS === 'ios'
+        ? createBottomTabNavigator(tabs)
+        : createMaterialTopTabNavigator(tabs)
+      )
 
 function UdaciStatusBar ({backgroundColor, ...props}) {
   return (
