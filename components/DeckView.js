@@ -5,18 +5,17 @@ import { white } from '../utils/colors';
 
 const DeckView = ({ deckTitle, decks, navigation }) => {
     return (
-        <TouchableOpacity style={styles.item} onPress={() => navigation.navigate('DeckDetail')}>
+        <TouchableOpacity style={styles.item} onPress={() => navigation.navigate('DeckDetail', {deckTitle})}>
             <Text style={{fontSize: 24}}>{deckTitle}</Text>
             <Text style={{fontSize: 16}}>{decks[deckTitle].cards.length} Cards</Text>
         </TouchableOpacity>
     )
 }
 
-const mapStateToProps = (state, { deckTitle, navigation }) => {
+const mapStateToProps = (state, { deckTitle }) => {
     return {
         decks: state,
-        deckTitle,
-        navigation
+        deckTitle
     }
 }
 
