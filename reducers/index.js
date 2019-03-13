@@ -22,7 +22,7 @@ export default function decks(state={}, action) {
                 [action.deck.title]: { ...state[action.deck.title], cards: action.deck.cards.concat(action.card)}
             }
         case REMOVE_DECK:
-            const {[action.deck.title]: _, ...rest} = state
+            const {[action.deckTitle]: _, ...rest} = state
             return rest
         default:
             state
