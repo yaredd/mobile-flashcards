@@ -33,9 +33,9 @@ export function addCardToDeck(deck, card) {
     }
 }
 
-export function removeDeck(deck) {
+export function removeDeck(deckTitle) {
     return {
         type: REMOVE_DECK,
-        deck
+        deckTitle
     }
 }

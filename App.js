@@ -4,6 +4,8 @@ import { createAppContainer, createBottomTabNavigator, createMaterialTopTabNavig
 import Decks from './components/Decks'
 import AddDeck from './components/AddDeck'
 import DeckDetail from './components/DeckDetail'
+import AddCard from './components/AddCard'
+import QuizView from './components/QuizView'
 import { Constants } from 'expo';
 import { Provider } from 'react-redux'
 import { createStore } from 'redux'
@@ -46,7 +48,25 @@ const MainNavigator = createAppContainer(createStackNavigator({
         backgroundColor: purple
       }
     }
-  }
+  },
+  AddCard: {
+    screen: AddCard,
+    navigationOptions: {
+      headerTintColor: white,
+      headerStyle: {
+        backgroundColor: purple
+      }
+    }
+  },
+  QuizView: {
+    screen: QuizView,
+    navigationOptions: {
+      headerTintColor: white,
+      headerStyle: {
+        backgroundColor: purple
+      }
+    }
+  },
 }))
 
 function UdaciStatusBar ({backgroundColor, ...props}) {
