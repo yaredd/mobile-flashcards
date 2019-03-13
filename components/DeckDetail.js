@@ -29,7 +29,6 @@ class DeckDetail extends Component {
 }
 
 const mapStateToProps = (state, {navigation}) => {
-        alert(navigation)
     const { deckTitle } = navigation.state.params
     return {
         deckTitle,
