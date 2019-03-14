@@ -10,7 +10,12 @@ import QuizView from './QuizView'
 
 class DeckDetail extends Component {
     state = {
-        removed: false
+        removed: false,
+        responses: null
+    }
+
+    correctAnswerCounter = () => {
+        responses
     }
 
     removeDeck () {
