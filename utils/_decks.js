@@ -16,3 +16,10 @@ export function deckFromTitle(title) {
         }
     }
 }
+
+export function cardFromQuestionAnswer({ question, answer }) {
+    return {
+        question,
+        answer
+    }
+}

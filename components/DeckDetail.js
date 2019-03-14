@@ -11,7 +11,8 @@ import QuizView from './QuizView'
 class DeckDetail extends Component {
     state = {
         removed: false,
-        responses: null
+        responses: null,
+        addedCard: false
     }
 
     correctAnswerCounter = () => {
@@ -23,12 +24,16 @@ class DeckDetail extends Component {
         removeDeckFromDB(deckTitle)
         remove()
         goBack()
-        this.setState({removed: true})
+        this.setState((prevState) => { removed: true})
     }
 
-    shouldComponentUpdate() {
-        return  this.state.removed
+    cardAddedToDeck = () => {
+        this.setState((prevState) => { addedCard: true })
     }
+
+    //shouldComponentUpdate() {
+    //    return  this.state.removed || this.state.addedCard
+    //}
     
     render () {
         const { deckTitle, decks, navigation } = this.props
@@ -37,7 +42,7 @@ class DeckDetail extends Component {
                 <Text>Deck Detail</Text>
                 <Text style={{fontSize: 24 }}>{deckTitle}</Text>
                 <Text style={{fontSize: 16 }}>{decks[deckTitle].cards.length} Cards</Text>
-                <TouchableOpacity onPress={() => navigation.navigate('AddCard')}><Text>Add Card</Text></TouchableOpacity>
+                <TouchableOpacity onPress={() => navigation.navigate('AddCard', {deckTitle: deckTitle, cardAdded: () => this.cardAddedToDeck() })}><Text>Add Card</Text></TouchableOpacity>
                 <TouchableOpacity onPress={() => navigation.navigate('QuizView', { nextCard: 1, cardIndex: 0, showAnswer: false})}><Text>Start Quiz</Text></TouchableOpacity>
                 <TextBtn style={{fontSize: 16}} onPress={() => this.removeDeck()}>Delete Entry</TextBtn>
             </View>

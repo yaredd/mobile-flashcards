@@ -19,7 +19,7 @@ export default function decks(state={}, action) {
         case ADD_CARD_TO_DECK:
             return {
                 ...state,
-                [action.deck.title]: { ...state[action.deck.title], cards: action.deck.cards.concat(action.card)}
+                [action.deckTitle]: { ...state[action.deckTitle], cards: state[action.deckTitle].cards.concat(action.card)}
             }
         case REMOVE_DECK:
             const {[action.deckTitle]: _, ...rest} = state

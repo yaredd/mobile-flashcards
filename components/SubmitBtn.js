@@ -35,4 +35,4 @@ const styles = StyleSheet.create({
         color: white,
         fontSize: 22,
         textAlign: 'center'
-    })
+    }})

@@ -5,6 +5,7 @@ import { connect } from 'react-redux'
 import { addDeck } from '../actions'
 import { deckFromTitle } from '../utils/_decks'
 import SubmitBtn from '../components/SubmitBtn'
+import { white } from '../utils/colors'
 
 class Deck extends Component {
     state = {

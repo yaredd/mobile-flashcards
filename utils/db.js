@@ -32,7 +32,7 @@ export function addDeckToDB(title) {
 export function addCardToDeckToDB(title, card) {
     AsyncStorage.getItem(FLASHCARD_STORAGE_KEY)
         .then((result) => {
-            const data = result
+            const data = JSON.parse(result)
             data[title].cards.push(card)
             AsyncStorage.setItem(FLASHCARD_STORAGE_KEY, JSON.stringify(data))
         })
