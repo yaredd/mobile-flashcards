@@ -61,10 +61,7 @@ const MainNavigator = createAppContainer(createStackNavigator({
   QuizView: {
     screen: QuizView,
     navigationOptions: {
-      headerTintColor: white,
-      headerStyle: {
-        backgroundColor: purple
-      }
+      header: null
     }
   },
 }))

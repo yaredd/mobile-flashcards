@@ -41,8 +41,10 @@ class DeckDetail extends Component {
                 <Text>Deck Detail</Text>
                 <Text style={{fontSize: 24 }}>{deckTitle}</Text>
                 <Text style={{fontSize: 16 }}>{decks[deckTitle].cards.length} Cards</Text>
-                <TouchableOpacity onPress={() => navigation.navigate('AddCard', {deckTitle: deckTitle, cardAdded: () => this.cardAddedToDeck() })}><Text>Add Card</Text></TouchableOpacity>
-                <TouchableOpacity onPress={() => navigation.navigate('QuizView', { nextCard: 1, cardIndex: 0, showAnswer: false})}><Text>Start Quiz</Text></TouchableOpacity>
+                <TouchableOpacity style={{marginBottom: 20}}
+                        onPress={() => navigation.navigate('AddCard', {deckTitle: deckTitle, cardAdded: () => this.cardAddedToDeck() })}><Text>Add Card</Text></TouchableOpacity>
+                <TouchableOpacity style={{marginBottom: 20}} 
+                        onPress={() => navigation.navigate('QuizView', { cardIndex: 0, showAnswer: false, deckTitle: deckTitle})}><Text>Start Quiz</Text></TouchableOpacity>
                 <TextBtn style={{fontSize: 16}} onPress={() => this.removeDeck()}>Delete Entry</TextBtn>
             </View>
         )
