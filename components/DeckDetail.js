@@ -23,19 +23,18 @@ class DeckDetail extends Component {
         const { deckTitle, goBack, remove } = this.props
         removeDeckFromDB(deckTitle)
         remove()
+        this.setState(() => ({ removed: true}))
         goBack()
-        this.setState((prevState) => { removed: true})
     }
 
     cardAddedToDeck = () => {
-        this.setState((prevState) => { addedCard: true })
+        this.setState(() => ({ addedCard: true }))
     }
 
-    //shouldComponentUpdate() {
-    //    return  this.state.removed || this.state.addedCard
-    //}
-    
     render () {
+        if (this.state.removed === true){
+            return (<Text>Ugly HACK: shouldComponentUpdate not working when using stackNavigator?!</Text>)
+        }
         const { deckTitle, decks, navigation } = this.props
         return (
             <View>
