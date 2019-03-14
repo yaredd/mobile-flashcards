@@ -1,19 +1,10 @@
 import React, { Component } from 'react'
 import { StyleSheet, Platform, View, Text, TextInput, TouchableOpacity } from 'react-native'
-import { addDeckToDB } from '../utils/db';
+import { addDeckToDB } from '../utils/db'
 import { connect } from 'react-redux'
-import { addDeck } from '../actions';
-import { deckFromTitle } from '../utils/_decks';
-import { purple, white } from '../utils/colors'
-
-function SubmitBtn ({ onPress, disabled }) {
-    return (
-        <TouchableOpacity style={ Platform.OS === 'ios' ? styles.iosSubmitBtn : styles.androidSubmitBtn }
-            onPress={onPress} disabled={disabled}>
-            <Text style={styles.submitBtnTxt}>Submit</Text>
-        </TouchableOpacity>
-    )
-}
+import { addDeck } from '../actions'
+import { deckFromTitle } from '../utils/_decks'
+import SubmitBtn from '../components/SubmitBtn'
 
 class Deck extends Component {
     state = {
@@ -62,30 +53,6 @@ const styles = StyleSheet.create({
         flex: 1,
         padding: 20,
         backgroundColor: white
-    },
-    iosSubmitBtn: {
-        backgroundColor: purple,
-        padding: 10,
-        borderRadius: 7,
-        height: 45,
-        marginLeft: 40,
-        marginRight: 40
-    },
-    androidSubmitBtn: {
-        backgroundColor: purple,
-        padding: 10,
-        paddingRight: 30,
-        paddingLeft: 30,
-        borderRadius: 5,
-        height: 45,
-        alignSelf: 'flex-end',
-        justifyContent: 'center',
-        alignItems: 'center'
-    },
-    submitBtnTxt: {
-        color: white,
-        fontSize: 22,
-        textAlign: 'center'
     }
 })
 
@@ -94,4 +61,5 @@ function mapStateToProps(state) {
         decks: state
     }
 }
+
 export default connect(mapStateToProps)(Deck)
