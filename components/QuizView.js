@@ -7,7 +7,6 @@ import { red, gray, green, white } from '../utils/colors'
 class QuizView extends Component {
     state = {
         showAnswer: false,
-        responded: false
     }
 
     toggleShowAnswer = () => {
@@ -16,19 +15,15 @@ class QuizView extends Component {
 
     handleResponse = (response) => {
         const { correctAnswerCount, navigation, cardIndex, totalCards, deckTitle } = this.props
-        const {  responded } = this.state
 
-        let nextCardIndex = parseInt(nextCardIndex) + 1
-        nextCardIndex = (nextCardIndex < totalCards - 1) ? nextCardIndex : null
+        let nextCardIndex = parseInt(cardIndex) + 1
+        nextCardIndex = (nextCardIndex < parseInt(totalCards)) ? nextCardIndex : null
         let correctAnswerCounter = parseInt(correctAnswerCount)
 
         if (response === 'correct') {
-           correctAnswerCounter = ( responded === false ? correctAnswerCounter + 1 : correctAnswerCounter )
-        }else {
-           correctAnswerCounter = ( responded === false ? correctAnswerCounter - 1 : correctAnswerCounter )
+           correctAnswerCounter = correctAnswerCounter + 1 
         }
 
-        this.setState((state)=> ({responded: !state.responded}))
         navigation.navigate('QuizView', { cardIndex: nextCardIndex, showAnswer: false, deckTitle: deckTitle, correctAnswerCount: correctAnswerCounter })
     }
 
@@ -36,7 +31,7 @@ class QuizView extends Component {
     render () {
         const { deckTitle,  cardIndex, totalCards, currentCard, navigation, correctAnswerCount } = this.props
         const { showAnswer } = this.state
-        if (parseInt(cardIndex) >= parseInt(totalCards)){
+        if (cardIndex === null || parseInt(cardIndex) >= parseInt(totalCards)){
             return (
                 <View>
                     <Text>You result</Text>

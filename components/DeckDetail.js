@@ -31,6 +31,14 @@ class DeckDetail extends Component {
         this.setState(() => ({ addedCard: true }))
     }
 
+    noCards = () => {
+        const { decks, deckTitle } = this.props
+        if (decks === undefined || decks[deckTitle].cards.length === 0){
+            return true
+        }
+        return false
+    }
+
     render () {
         if (this.state.removed === true){
             return (<Text>Ugly HACK: shouldComponentUpdate not working when using stackNavigator?!</Text>)
@@ -44,7 +52,8 @@ class DeckDetail extends Component {
                 <TouchableOpacity style={{marginBottom: 20}}
                         onPress={() => navigation.navigate('AddCard', {deckTitle: deckTitle, cardAdded: () => this.cardAddedToDeck() })}><Text>Add Card</Text></TouchableOpacity>
                 <TouchableOpacity style={{marginBottom: 20}} 
-                        onPress={() => navigation.navigate('QuizView', { cardIndex: 0, showAnswer: false, deckTitle: deckTitle})}><Text>Start Quiz</Text></TouchableOpacity>
+                        onPress={() => navigation.navigate('QuizView', { cardIndex: 0, showAnswer: false, deckTitle: deckTitle, correctAnswerCount: 0})}
+                        disabled={this.noCards()}><Text>Start Quiz</Text></TouchableOpacity>
                 <TextBtn style={{fontSize: 16}} onPress={() => this.removeDeck()}>Delete Entry</TextBtn>
             </View>
         )
