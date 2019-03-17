@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, TouchableOpacity, Platform } from 'react-native
 import { connect } from 'react-redux'
 import TextBtn from './TextBtn';
 import { red, gray, green, white } from '../utils/colors'
+import { clearLocalNotification, setLocalNotification } from '../utils/helpers';
 
 class QuizView extends Component {
     state = {
@@ -25,6 +26,11 @@ class QuizView extends Component {
         }
 
         navigation.navigate('QuizView', { cardIndex: nextCardIndex, showAnswer: false, deckTitle: deckTitle, correctAnswerCount: correctAnswerCounter })
+        //if reached the end of quiz
+        if(nextCardIndex === null){
+            clearLocalNotification()
+                .then(setLocalNotification)
+        }
     }
 
 

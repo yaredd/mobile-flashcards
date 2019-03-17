@@ -11,6 +11,7 @@ import { Provider } from 'react-redux'
 import { createStore } from 'redux'
 import reducer from './reducers'
 import { white, purple } from './utils/colors';
+import { setLocalNotification } from './utils/helpers';
 
 const tabs = {
   Decks: {
@@ -75,6 +76,10 @@ function UdaciStatusBar ({backgroundColor, ...props}) {
 }
 
 export default class App extends Component {
+
+  componentDidMount() {
+    setLocalNotification()
+  }
   
   render() {
     return (
