@@ -1,10 +1,11 @@
 import React, { Component } from 'react'
-import { ScrollView, Text } from 'react-native'
+import { ScrollView, Text, StyleSheet } from 'react-native'
 import { connect } from 'react-redux'
 import { getDecksFromDB } from '../utils/db'
 import { getDecks } from '../actions';
 import { AppLoading } from 'expo'
 import DeckView from './DeckView'
+import { white, gray } from '../utils/colors'
 
 class Decks extends Component {
 
@@ -34,8 +35,8 @@ class Decks extends Component {
 
 
         return (
-            <ScrollView style={{ flex: 1 }}>
-                <Text>All the decks</Text>
+            <ScrollView style={styles.container}>
+                <Text style={{ fontSize: 24, alignSelf: 'center'}}>Click on deck</Text>
                 {Object.keys(decks).map((deckTitle) => (
                     <DeckView key={deckTitle} deckTitle={deckTitle} navigation={this.props.navigation} />
                 ))}
@@ -43,6 +44,20 @@ class Decks extends Component {
         )
     }
 }
+
+const styles = StyleSheet.create({
+    container: {
+      flex: 1,
+      backgroundColor: white,
+    },
+    deck: {
+        borderWidth: 2,
+        borderColor: gray,
+        padding: 40,
+        margin: 20,
+        alignSelf: 'center'
+    }
+  })
 
 function mapStateToProps(state) {
     return {

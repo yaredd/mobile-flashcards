@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 import { addDeck } from '../actions'
 import { deckFromTitle } from '../utils/_decks'
 import SubmitBtn from '../components/SubmitBtn'
-import { white } from '../utils/colors'
+import { white, gray } from '../utils/colors'
 
 class Deck extends Component {
     state = {
@@ -38,9 +38,9 @@ class Deck extends Component {
         const { alreadyExists } = this.props
 
         return (
-            <View style={styles.container}>
-                <Text>What is the title of the Deck?</Text>
-                <TextInput style={{height: 20, }}
+            <View>
+                <Text style={styles.screenTitle}>What is the title of the Deck?</Text>
+                <TextInput style={styles.inputText}
                   placeholder="Type the title of the new deck"
                   onChangeText={(inputText) => this.setState({newTitle: inputText})} value={newTitle} />
                 <SubmitBtn onPress={this.submit} disabled={ newTitle.length === 0 || this.alreadyExists()} />
@@ -50,10 +50,15 @@ class Deck extends Component {
 }
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        padding: 20,
-        backgroundColor: white
+    screenTitle: {
+        fontSize: 24,
+        alignSelf: 'center'
+    },
+    inputText: {
+        height: 40, 
+        margin: 20,
+        borderColor: gray,
+        borderWidth: 1
     }
 })
 

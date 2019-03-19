@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { View, Text, StyleSheet, TouchableOpacity, Platform } from 'react-native'
 import { connect } from 'react-redux'
 import TextBtn from './TextBtn';
-import { red, gray, green, white } from '../utils/colors'
+import { red, gray, green, white, blue } from '../utils/colors'
 import { clearLocalNotification, setLocalNotification } from '../utils/helpers';
 
 class QuizView extends Component {
@@ -16,6 +16,7 @@ class QuizView extends Component {
 
     handleResponse = (response) => {
         const { correctAnswerCount, navigation, cardIndex, totalCards, deckTitle } = this.props
+        const { showAnswer } = this.state
 
         let nextCardIndex = parseInt(cardIndex) + 1
         nextCardIndex = (nextCardIndex < parseInt(totalCards)) ? nextCardIndex : null
@@ -25,7 +26,10 @@ class QuizView extends Component {
            correctAnswerCounter = correctAnswerCounter + 1 
         }
 
-        navigation.navigate('QuizView', { cardIndex: nextCardIndex, showAnswer: false, deckTitle: deckTitle, correctAnswerCount: correctAnswerCounter })
+        this.setState(() => ({showAnswer: false}))
+
+        navigation.navigate('QuizView', { cardIndex: nextCardIndex, showAnswer: showAnswer, deckTitle: deckTitle, correctAnswerCount: correctAnswerCounter })
+
         //if reached the end of quiz
         if(nextCardIndex === null){
             clearLocalNotification()
@@ -35,13 +39,13 @@ class QuizView extends Component {
 
 
     render () {
-        const { deckTitle,  cardIndex, totalCards, currentCard, navigation, correctAnswerCount } = this.props
+        const { deckTitle,  cardIndex, totalCards, nextCardIndex, currentCard, navigation, correctAnswerCount } = this.props
         const { showAnswer } = this.state
         if (cardIndex === null || parseInt(cardIndex) >= parseInt(totalCards)){
             return (
-                <View>
-                    <Text>You result</Text>
-                    <Text>{correctAnswerCount} out of {totalCards} questions</Text>
+                <View style={{ flex: 1 }}>
+                    <Text style={styles.screenTitle}>You result on "{deckTitle}" quiz:</Text>
+                    <Text style={{ fontSize: 28, margin: 10, alignSelf: 'center' }}>{correctAnswerCount} out of {totalCards} questions answered correctly.</Text>
                     <TextBtn onPress={() => navigation.navigate('DeckDetail', {deckTitle})} style={{color: gray, fontSize: 14}}>Go Back</TextBtn>
                 </View>
             )
@@ -49,16 +53,17 @@ class QuizView extends Component {
 
         return (
             <View style={{ flex: 1 }}>
-                <Text style={{fontSize: 28}}>Cards in deck: {deckTitle}. {correctAnswerCount} of {totalCards} answered correctly</Text>
+                <Text style={styles.screenTitle} >Quiz on {deckTitle}</Text>
+                <Text style={{fontSize: 28}}>{cardIndex + 1} of {totalCards} cards</Text>
                 { showAnswer === true ?
-                    <View>
-                        <Text style={{fontSize: 24}}>Answer</Text>
+                    <View style={styles.question}>
+                        <Text style={{fontSize: 24}}>Answer:</Text>
                         <Text style={{fontSize: 20}}>{currentCard.answer}</Text>
-                        <TextBtn onPress={() => this.toggleShowAnswer()} style={{color: red, fontSize: 15, margin: 20}}>Show Question</TextBtn>
+                        <TextBtn onPress={() => this.toggleShowAnswer()} style={{color: blue, fontSize: 15, margin: 20}}>Show Question</TextBtn>
                     </View> 
                 : 
-                    <View>
-                        <Text style={{fontSize: 24}}>Question</Text>
+                    <View style={styles.question}>
+                        <Text style={{fontSize: 24}}>Question:</Text>
                         <Text style={{fontSize: 20}}>{currentCard.question}</Text>
                         <TextBtn onPress={() => this.toggleShowAnswer()} style={{color: red, fontSize: 15, margin: 20}}>Show Answer</TextBtn>
                     </View> 
@@ -78,6 +83,10 @@ class QuizView extends Component {
 }
 
 const styles = StyleSheet.create({
+    screenTitle: {
+        fontSize: 24,
+        alignSelf: 'center'
+    },
     iosBtn: {
         borderRadius: 7,
         height: 50,
@@ -98,6 +107,13 @@ const styles = StyleSheet.create({
         color: white,
         fontSize: 32,
         textAlign: 'center'
+    },
+    question: {
+        borderColor: gray,
+        margin: 20,
+        padding: 20,
+        justifyContent: 'center',
+        alignItems: 'center'
     }
 })
 

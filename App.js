@@ -84,18 +84,9 @@ export default class App extends Component {
   render() {
     return (
       <Provider store={createStore(reducer)}>
-        <UdaciStatusBar backgroundColor={'blue'} barStyle='light-content' />
-        <MainNavigator style={styles.container} />
+        <UdaciStatusBar backgroundColor={purple} barStyle='light-content' />
+        <MainNavigator />
       </Provider>
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});

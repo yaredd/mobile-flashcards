@@ -1,13 +1,13 @@
 import React from 'react'
 import { View, Text, StyleSheet, Platform, TouchableOpacity } from 'react-native'
 import { connect } from 'react-redux';
-import { white } from '../utils/colors';
+import { white, gray } from '../utils/colors';
 
 const DeckView = ({ deckTitle, decks, navigation }) => {
     return (
         <TouchableOpacity style={styles.item} onPress={() => navigation.navigate('DeckDetail', {deckTitle})}>
-            <Text style={{fontSize: 24}}>{deckTitle}</Text>
-            <Text style={{fontSize: 16}}>{decks[deckTitle].cards.length} Cards</Text>
+            <Text style={{fontSize: 24, alignSelf: 'center'}}>{deckTitle}</Text>
+            <Text style={{fontSize: 16, alignSelf: 'center'}}>{decks[deckTitle].cards.length} Cards</Text>
         </TouchableOpacity>
     )
 }
@@ -20,9 +20,11 @@ const mapStateToProps = (state, { deckTitle }) => {
 }
 
 const styles = StyleSheet.create({
-    items: {
+    item: {
         backgroundColor: white,
-        borderRadius: Platform.OS === 'ios' ? 16 : 2,
+        borderColor: gray,
+        borderWidth: 2,
+        borderRadius: Platform.OS === 'ios' ? 16 : 6,
         padding: 20,
         marginTop: 17,
         marginRight: 10,
