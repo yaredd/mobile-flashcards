@@ -46,7 +46,10 @@ class QuizView extends Component {
                 <View style={{ flex: 1 }}>
                     <Text style={styles.screenTitle}>You result on "{deckTitle}" quiz:</Text>
                     <Text style={{ fontSize: 28, margin: 10, alignSelf: 'center' }}>{correctAnswerCount} out of {totalCards} questions answered correctly.</Text>
-                    <TextBtn onPress={() => navigation.navigate('DeckDetail', {deckTitle})} style={{color: gray, fontSize: 14}}>Go Back</TextBtn>
+                    <View style={styles.resultBtns}>
+                        <TextBtn onPress={() => navigation.navigate('DeckDetail', {deckTitle})} style={styles.goBackBtn}>Back to Deck</TextBtn>
+                        <TextBtn onPress={() => navigation.navigate('QuizView', { cardIndex: 0, showAnswer: false, deckTitle: deckTitle, correctAnswerCount: 0})} style={styles.restartBtn}>Restart Quiz</TextBtn>
+                    </View>
                 </View>
             )
         }
@@ -54,7 +57,7 @@ class QuizView extends Component {
         return (
             <View style={{ flex: 1 }}>
                 <Text style={styles.screenTitle} >Quiz on {deckTitle}</Text>
-                <Text style={{fontSize: 28}}>{cardIndex + 1} of {totalCards} cards</Text>
+                <Text style={{fontSize: 28}}>{parseInt(totalCards) - cardIndex - 1} of {totalCards} questions remaining</Text>
                 { showAnswer === true ?
                     <View style={styles.question}>
                         <Text style={{fontSize: 24}}>Answer:</Text>
@@ -114,6 +117,19 @@ const styles = StyleSheet.create({
         padding: 20,
         justifyContent: 'center',
         alignItems: 'center'
+    },
+    resultBtns: {
+        flexDirection: 'row',
+        flex: 1,
+        justifyContent: 'space-around'
+    },
+    restartBtn: {
+        color: red,
+        fontSize: 14,
+    },
+    goBackBtn: {
+        color: gray,
+        fontSize: 14,
     }
 })
 

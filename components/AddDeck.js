@@ -43,7 +43,7 @@ class Deck extends Component {
                 <TextInput style={styles.inputText}
                   placeholder="Type the title of the new deck"
                   onChangeText={(inputText) => this.setState({newTitle: inputText})} value={newTitle} />
-                <SubmitBtn onPress={this.submit} disabled={ newTitle.length === 0 || this.alreadyExists()} />
+                <SubmitBtn submitText='Create Deck' onPress={this.submit} disabled={ newTitle.length === 0 || this.alreadyExists()} />
             </View>
         )
     }
